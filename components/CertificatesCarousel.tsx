@@ -3,7 +3,6 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
-import { Card, CardContent } from "@/components/ui/card"
 
 const certificates = [
   {
@@ -45,15 +44,15 @@ export default function CertificatesCarousel() {
         </h2>
       </div>
 
-      {/* Contenedor del carousel */}
+      {/* Contenedor del carousel de ancho completo */}
       <div className="relative w-full">
         {/* Gradientes laterales para efecto fade */}
         <div className="absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-gray-900 to-transparent z-10" />
         <div className="absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-gray-900 to-transparent z-10" />
         
-        {/* Carousel infinito */}
+        {/* Carousel infinito sin contenedor limitado */}
         <div 
-          className={`flex gap-8 transition-opacity duration-1000 ${
+          className={`flex gap-16 transition-opacity duration-1000 ${
             isVisible ? 'animate-scroll-certificates' : 'opacity-0'
           }`}
           style={{
@@ -61,28 +60,31 @@ export default function CertificatesCarousel() {
           }}
         >
           {infiniteCertificates.map((certificate, index) => (
-            <Card
+            <div
               key={`${certificate.id}-${index}`}
-              className="flex-shrink-0 w-80 bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 hover:border-red-500/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-red-500/20"
+              className="flex-shrink-0 w-80 text-center group hover:scale-105 transition-all duration-300"
             >
-              <CardContent className="p-8 text-center">
-                <div className="relative w-32 h-32 mx-auto mb-6 overflow-hidden rounded-lg">
-                  <Image
-                    src={certificate.image}
-                    alt={certificate.name}
-                    fill
-                    className="object-contain transition-transform duration-300 hover:scale-110"
-                    sizes="(max-width: 768px) 128px, 128px"
-                  />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2 font-mono tracking-wide">
+              {/* Imagen del certificado */}
+              <div className="relative w-40 h-40 mx-auto mb-6 overflow-hidden rounded-lg">
+                <Image
+                  src={certificate.image}
+                  alt={certificate.name}
+                  fill
+                  className="object-contain transition-transform duration-300 group-hover:scale-110"
+                  sizes="(max-width: 768px) 160px, 160px"
+                />
+              </div>
+              
+              {/* Información del certificado */}
+              <div className="space-y-2">
+                <h3 className="text-xl font-bold text-white font-mono tracking-wider">
                   {certificate.name}
                 </h3>
-                <p className="text-gray-400 text-sm leading-relaxed">
+                <p className="text-gray-400 text-sm leading-relaxed max-w-64 mx-auto">
                   {certificate.description}
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
       </div>
