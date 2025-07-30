@@ -652,54 +652,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* Nuestros Servicios Expandido */}
-          <div className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-gray-800 overflow-hidden my-0 py-10 pb-[0] pt-0een relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-gray-800 overflow-hidden my-0 py-10 pb-[4]">
-            <h3 className="text-3xl font-black text-white mb-6 tracking-tight text-center">
-              NUESTROS <span className="text-gradient">SERVICIOS</span>
-            </h3>
-            <p className="text-xl text-gray-300 mb-12 leading-relaxed text-center max-w-5xl mx-auto">
-              Nuestros servicios abarcan todas las etapas de construcción, desde el diseño inicial hasta la entrega
-              final del proyecto. Nos especializamos en la construcción de viviendas, edificaciones comerciales,
-              instalación de piscinas y reformas. Además, ofrecemos soluciones personalizadas, garantizando calidad y
-              satisfacción en cada proyecto.
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {[
-                {
-                  icon: Award,
-                  title: "Calidad Garantizada",
-                  description: "Más de 30 años de experiencia respaldando cada proyecto con tecnología de vanguardia.",
-                },
-                {
-                  icon: Users,
-                  title: "Equipo Experto",
-                  description: "Profesionales altamente cualificados en cada área con formación continua.",
-                },
-                {
-                  icon: Building2,
-                  title: "Proyectos Únicos",
-                  description:
-                    "Cada obra es diseñada específicamente para nuestros clientes con soluciones innovadoras.",
-                },
-                {
-                  icon: Hammer,
-                  title: "Construcción Integral",
-                  description: "Desde viviendas hasta edificaciones comerciales, piscinas y reformas completas.",
-                },
-              ].map((item, index) => (
-                <div key={index} className="text-center group hover-lift">
-                  <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50 group-hover:border-red-500/50 transition-all duration-300">
-                    <div className="w-16 h-16 bg-gradient-to-br from-red-600 to-orange-600 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                      <item.icon className="h-8 w-8 text-white" />
-                    </div>
-                    <h4 className="text-lg font-bold text-white mb-4 font-mono tracking-wide">{item.title}</h4>
-                    <p className="text-gray-400 leading-relaxed text-sm">{item.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          
 
           </div>
       </section>
