@@ -27,70 +27,70 @@ const certificates = [
 ]
 
 export default function CertificatesCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % certificates.length)
-    }, 3000)
-
-    return () => clearInterval(interval)
+    setIsVisible(true)
   }, [])
 
-  return (
-    <div className="mb-20">
-      <h3 className="text-3xl font-black text-white mb-6 tracking-tight text-center">
-        NUESTRAS <span className="text-gradient">CERTIFICACIONES</span>
-      </h3>
-      <p className="text-xl text-gray-300 mb-12 leading-relaxed text-center max-w-5xl mx-auto">
-        Contamos con las certificaciones más exigentes del sector que avalan nuestro compromiso con la calidad,
-        el medio ambiente y la seguridad laboral.
-      </p>
+  // Duplicamos los certificados múltiples veces para crear un loop infinito suave
+  const infiniteCertificates = [...certificates, ...certificates, ...certificates, ...certificates]
 
-      <div className="relative overflow-hidden">
-        <div className="flex justify-center items-center space-x-8">
-          {certificates.map((certificate, index) => (
+  return (
+    <section className="w-full py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-black overflow-hidden">
+      {/* Título principal */}
+      <div className="text-center mb-16">
+        <h2 className="text-4xl lg:text-6xl font-black text-white tracking-tight">
+          CERTIFICADOS
+        </h2>
+      </div>
+
+      {/* Contenedor del carousel */}
+      <div className="relative w-full">
+        {/* Gradientes laterales para efecto fade */}
+        <div className="absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-gray-900 to-transparent z-10" />
+        <div className="absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-gray-900 to-transparent z-10" />
+        
+        {/* Carousel infinito */}
+        <div 
+          className={`flex gap-8 transition-opacity duration-1000 ${
+            isVisible ? 'animate-scroll-certificates' : 'opacity-0'
+          }`}
+          style={{
+            width: 'calc(100% * 4)', // 4 copias de los certificados
+          }}
+        >
+          {infiniteCertificates.map((certificate, index) => (
             <Card
-              key={certificate.id}
-              className={`transition-all duration-500 ${
-                index === currentIndex
-                  ? "scale-110 opacity-100 z-10"
-                  : "scale-90 opacity-60"
-              } bg-gray-800/50 backdrop-blur-sm border-gray-700/50 hover:border-red-500/50`}
+              key={`${certificate.id}-${index}`}
+              className="flex-shrink-0 w-80 bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 hover:border-red-500/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-red-500/20"
             >
               <CardContent className="p-8 text-center">
-                <div className="relative w-32 h-32 mx-auto mb-6">
+                <div className="relative w-32 h-32 mx-auto mb-6 overflow-hidden rounded-lg">
                   <Image
                     src={certificate.image}
                     alt={certificate.name}
                     fill
-                    className="object-contain"
+                    className="object-contain transition-transform duration-300 hover:scale-110"
+                    sizes="(max-width: 768px) 128px, 128px"
                   />
                 </div>
-                <h4 className="text-lg font-bold text-white mb-2 font-mono tracking-wide">
+                <h3 className="text-xl font-bold text-white mb-2 font-mono tracking-wide">
                   {certificate.name}
-                </h4>
-                <p className="text-gray-400 text-sm">{certificate.description}</p>
+                </h3>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  {certificate.description}
+                </p>
               </CardContent>
             </Card>
           ))}
         </div>
-
-        {/* Indicadores */}
-        <div className="flex justify-center mt-8 space-x-2">
-          {certificates.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentIndex
-                  ? "bg-gradient-to-r from-red-500 to-orange-500"
-                  : "bg-gray-600 hover:bg-gray-500"
-              }`}
-            />
-          ))}
-        </div>
       </div>
-    </div>
+
+      {/* Línea decorativa */}
+      <div className="flex justify-center mt-16">
+        <div className="w-24 h-1 bg-gradient-to-r from-red-500 to-orange-500 rounded-full" />
+      </div>
+    </section>
   )
 }

@@ -171,7 +171,7 @@
 
   /* Animación específica para certificados */
   .animate-scroll-certificates {
-    animation: scroll-certificates 20s linear infinite;
+    animation: scroll-certificates 30s linear infinite;
   }
 
   .animate-scroll-certificates:hover {
@@ -185,6 +185,11 @@
     100% {
       transform: translateX(-25%);
     }
+  }
+
+  /* Mejoras adicionales para el carousel */
+  .animate-scroll-certificates .hover\:scale-105:hover {
+    animation-play-state: paused;
   }
 
   /* Smooth scrolling */
