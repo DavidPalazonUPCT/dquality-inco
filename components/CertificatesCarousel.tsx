@@ -89,10 +89,6 @@ export default function CertificatesCarousel() {
         </div>
       </div>
 
-      {/* Línea decorativa */}
-      <div className="flex justify-center mt-16">
-        <div className="w-24 h-1 bg-gradient-to-r from-red-500 to-orange-500 rounded-full" />
-      </div>
-    </section>
+      </section>
   )
 }
