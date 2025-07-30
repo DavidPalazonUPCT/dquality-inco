@@ -1,89 +1,99 @@
 
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
+import { Card, CardContent } from "@/components/ui/card"
 
-interface Certificate {
-  id: string
-  name: string
-  image: string
-}
-
-const certificates: Certificate[] = [
+const certificates = [
   {
-    id: "iso-45001",
-    name: "ISO 45001",
-    image: "/images/certificado-iso-45001.png",
-  },
-  {
-    id: "iso-9001",
-    name: "ISO 9001",
+    id: 1,
+    name: "ISO 9001:2015",
+    description: "Sistema de Gestión de Calidad",
     image: "/images/certificado-iso-9001.png",
   },
   {
-    id: "iso-14001",
-    name: "ISO 14001",
+    id: 2,
+    name: "ISO 14001:2015",
+    description: "Sistema de Gestión Ambiental",
     image: "/images/certificado-iso-14001.png",
+  },
+  {
+    id: 3,
+    name: "ISO 45001:2018",
+    description: "Sistema de Gestión de Seguridad y Salud",
+    image: "/images/certificado-iso-45001.png",
   },
 ]
 
 export default function CertificatesCarousel() {
-  const [isPaused, setIsPaused] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(0)
 
   // Duplicamos los certificados múltiples veces para crear un loop infinito suave
   const infiniteCertificates = [...certificates, ...certificates, ...certificates, ...certificates]
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % certificates.length)
+    }, 3000)
+
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <div className="mb-20">
       <h3 className="text-3xl font-black text-white mb-6 tracking-tight text-center">
         NUESTRAS <span className="text-gradient">CERTIFICACIONES</span>
       </h3>
-      <p className="text-xl text-gray-300 mb-12 leading-relaxed text-center max-w-4xl mx-auto">
-        Certificaciones que respaldan nuestro compromiso con la calidad, seguridad y medio ambiente
+      <p className="text-xl text-gray-300 mb-12 leading-relaxed text-center max-w-5xl mx-auto">
+        Contamos con las certificaciones más exigentes del sector que avalan nuestro compromiso con la calidad,
+        el medio ambiente y la seguridad laboral.
       </p>
 
       <div className="relative overflow-hidden">
-        <div
-          className={`flex animate-scroll gap-8 ${isPaused ? '[animation-play-state:paused]' : ''}`}
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
-          {infiniteCertificates.map((certificate, index) => (
-            <div
-              key={`${certificate.id}-${index}`}
-              className="flex-shrink-0 w-48 h-64 bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+        <div className="flex justify-center items-center space-x-8">
+          {certificates.map((certificate, index) => (
+            <Card
+              key={certificate.id}
+              className={`transition-all duration-500 ${
+                index === currentIndex
+                  ? "scale-110 opacity-100 z-10"
+                  : "scale-90 opacity-60"
+              } bg-gray-800/50 backdrop-blur-sm border-gray-700/50 hover:border-red-500/50`}
             >
-              <div className="relative w-full h-full flex flex-col items-center justify-center">
-                <Image
-                  src={certificate.image}
-                  alt={certificate.name}
-                  width={150}
-                  height={200}
-                  className="object-contain max-w-full max-h-full"
-                />
-                <h4 className="mt-4 text-lg font-bold text-gray-900 text-center font-mono tracking-wide">
+              <CardContent className="p-8 text-center">
+                <div className="relative w-32 h-32 mx-auto mb-6">
+                  <Image
+                    src={certificate.image}
+                    alt={certificate.name}
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <h4 className="text-lg font-bold text-white mb-2 font-mono tracking-wide">
                   {certificate.name}
                 </h4>
-              </div>
-            </div>
+                <p className="text-gray-400 text-sm">{certificate.description}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* Indicadores */}
+        <div className="flex justify-center mt-8 space-x-2">
+          {certificates.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index === currentIndex
+                  ? "bg-gradient-to-r from-red-500 to-orange-500"
+                  : "bg-gray-600 hover:bg-gray-500"
+              }`}
+            />
           ))}
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes scroll {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-25%);
-          }
-        }
-        .animate-scroll {
-          animation: scroll 30s linear infinite;
-        }
-      `}</style>
     </div>
   )
 }
