@@ -7,19 +7,19 @@ import Image from "next/image"
 const certificates = [
   {
     id: 1,
-    name: "ISO 9001:2015",
+    name: "ISO 9001",
     description: "Sistema de Gestión de Calidad",
     image: "/images/certificado-iso-9001.png",
   },
   {
     id: 2,
-    name: "ISO 14001:2015",
+    name: "ISO 14001",
     description: "Sistema de Gestión Ambiental",
     image: "/images/certificado-iso-14001.png",
   },
   {
     id: 3,
-    name: "ISO 45001:2018",
+    name: "ISO 45001",
     description: "Sistema de Gestión de Seguridad y Salud",
     image: "/images/certificado-iso-45001.png",
   },
@@ -36,7 +36,7 @@ export default function CertificatesCarousel() {
   const infiniteCertificates = [...certificates, ...certificates, ...certificates, ...certificates]
 
   return (
-    <section className="w-full py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-black overflow-hidden">
+    <section className="w-screen py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-black overflow-hidden relative left-1/2 right-1/2 -mx-[50vw]">
       {/* Título principal */}
       <div className="text-center mb-16">
         <h2 className="text-4xl lg:text-6xl font-black text-white tracking-tight">
@@ -75,7 +75,7 @@ export default function CertificatesCarousel() {
                 />
               </div>
               
-              {/* Información del certificado */}
+              {/* Información del certificado - solo ISO */}
               <div className="space-y-2">
                 <h3 className="text-xl font-bold text-white font-mono tracking-wider">
                   {certificate.name}

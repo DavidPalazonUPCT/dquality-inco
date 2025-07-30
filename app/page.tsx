@@ -701,10 +701,11 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Certificados Carousel */}
-          <CertificatesCarousel />
-        </div>
+          </div>
       </section>
+
+      {/* Certificados Carousel - Fuera del contenedor para ancho completo */}
+      <CertificatesCarousel />
 
       {/* Contacto Section */}
       <section id="contacto" className="py-20 lg:py-32 bg-gradient-to-br from-gray-50 to-white relative">
