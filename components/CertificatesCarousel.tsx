@@ -29,9 +29,6 @@ const certificates = [
 export default function CertificatesCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0)
 
-  // Duplicamos los certificados múltiples veces para crear un loop infinito suave
-  const infiniteCertificates = [...certificates, ...certificates, ...certificates, ...certificates]
-
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % certificates.length)
