@@ -9,5 +9,9 @@ const imageBuilder = createImageUrlBuilder({
 })
 
 export const urlForImage = (source: Image) => {
+  if (!projectId || !dataset) {
+    console.warn("Sanity project ID or dataset not configured")
+    return null
+  }
   return imageBuilder?.image(source).auto("format").fit("max")
 }
